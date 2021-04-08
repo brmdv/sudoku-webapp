@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+    <style>
+        #infield {
+            font-family: monospace;
+            font-size: 150%;
+
+        }
+    </style>
+    <title>Bram’s Sudoku Solver</title>
+</head>
+
+<body>
+    <h1>Bram’s Sudoku Solver</h1>
+    <p>This is a simple project to learn Flask, Docker, etc. The sudoku solver itself I wrote on another occasion.</p>
+    <h2>Solve a sudoku</h2>
+    <p>Fill in your unsolved sudoku. Use <code>0</code> for empty fields</p>
+    <form action="/solve" method="post">
+        <textarea name="sudoku" rows="9" cols="11" id="infield"></textarea>
+        <button type="submit">Solve!</button>
+    </form>
+    <h2>API</h2>
+
+</body>
+
+</html>
