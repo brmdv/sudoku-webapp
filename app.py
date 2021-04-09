@@ -1,7 +1,8 @@
-from flask import Flask, render_template, request, redirect, url_for, jsonify
+import numpy as np
+from flask import Flask, jsonify, redirect, render_template, request, url_for
+
 from sudoku import Sudoku
 from sudoku import solve as sudoku_solve
-import numpy as np
 
 app = Flask(__name__)
 
@@ -18,6 +19,7 @@ def solve():
         rformat = request.form.get("return_format")
     elif request.args.get("s") is not None:
         raw_in = request.args.get("s")
+        rformat = None
     else:
         return redirect(url_for("index"))
 
@@ -47,3 +49,8 @@ def solve():
         )
     else:
         return f"Not valid format: {rformat}. Use 'text' 'html' or 'json'."
+
+
+# to run as dev server
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", threaded=True)

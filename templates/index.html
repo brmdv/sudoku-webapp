@@ -24,6 +24,12 @@
         have to care about formatting.</p>
     <form action="/solve" method="post">
         <label for="sudoku">Unsolved sudoku</label>
+        <label for="return_format"> Format </label>
+        <select name="return_format">
+            <option value="text">Text</option>
+            <option selected value="html">HTML</option>
+            <option value="json">JSON</option>
+        </select>
         <textarea name="sudoku" rows="9" id="infield" required="true" placeholder="1 0 0  0 0 0  0 0 6
 0 0 6  0 2 0  7 0 0
 7 8 9  4 5 0  1 0 3
@@ -33,15 +39,7 @@
 3 1 2  9 7 0  0 4 0
 0 4 0  0 1 2  0 7 8
 9 0 8  0 0 0  0 0 0" wrap="off"></textarea>
-        <div>
-            <label for="return_format"> Format </label>
-            <select name="return_format">
-                <option value="text">Text</option>
-                <option value="html">HTML</option>
-                <option value="json">JSON</option>
-            </select>
-            <button type="submit">Solve!</button>
-        </div>
+        <button type="submit">Solve!</button>
     </form>
     <h2>API</h2>
     <p><b>Solve</b> sudokus with <a
@@ -51,7 +49,7 @@
             <pre>s=</pre> 81 digits with initial sudoku.
         </li>
         <li>
-            <pre>format=</pre> result format, {<i><b>text</b>, html, json</i>.
+            <pre>format=</pre> result format, {<i><b>text</b>, html, json</i>}.
         </li>
     </ul>
     </p>
