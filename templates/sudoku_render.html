@@ -1,0 +1,9 @@
+<table>
+    {% for row in sudoku %}
+    <tr>
+        {% for col in row %}
+        <td>{{ col if col!=0 else '' }}</td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>

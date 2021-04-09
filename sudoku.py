@@ -44,7 +44,7 @@ class Sudoku:
 
             if precount == np.sum(self.possibility_count()):
                 break
-                
+
     def __str__(self) -> str:
         out = ""
         for row in self.possibilities:
@@ -74,6 +74,16 @@ class Sudoku:
     def copy(self):
         return Sudoku(possibilities=self.possibilities.copy())
 
+    def as_list(self):
+        return [
+            [
+                self.get_possibilities(x, y)[0]
+                if len(self.get_possibilities(x, y)) == 1
+                else 0
+                for y in range(9)
+            ]
+            for x in range(9)
+        ]
 
 
 def solve(sudoku, depth=0):
@@ -97,7 +107,7 @@ def solve(sudoku, depth=0):
                     return solution
 
 
-if __name__=="__main__":
+if __name__ == "__main__":
     test_sudoku = Sudoku(
         np.array(
             [
@@ -132,3 +142,5 @@ if __name__=="__main__":
         )
     )
     print(solve(diff_sudoku))
+
+    print(diff_sudoku.as_list())

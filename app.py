@@ -31,4 +31,11 @@ def solve():
     new_sudoku = Sudoku(sudoku_text)
     solved_sudoku = sudoku_solve(new_sudoku)
 
-    return f"{solved_sudoku}"
+    # select return format
+    rformat = request.args.get("format", "text")
+    if rformat == "text":
+        return f"{solved_sudoku}"
+    elif rformat == "html":
+        return render_template("sudoku_render.html", sudoku=solved_sudoku.as_list())
+    else:
+        return f"Not valid format: {rformat}. Use 'text' or 'html'."
