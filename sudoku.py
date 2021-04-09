@@ -77,7 +77,7 @@ class Sudoku:
     def as_list(self):
         return [
             [
-                self.get_possibilities(x, y)[0]
+                int(self.get_possibilities(x, y)[0])
                 if len(self.get_possibilities(x, y)) == 1
                 else 0
                 for y in range(9)

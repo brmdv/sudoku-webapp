@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 from sudoku import Sudoku
 from sudoku import solve as sudoku_solve
 import numpy as np
@@ -15,6 +15,7 @@ def index():
 def solve():
     if request.method == "POST":
         raw_in = request.form.get("sudoku")
+        rformat = request.form.get("return_format")
     elif request.args.get("s") is not None:
         raw_in = request.args.get("s")
     else:
@@ -32,10 +33,17 @@ def solve():
     solved_sudoku = sudoku_solve(new_sudoku)
 
     # select return format
-    rformat = request.args.get("format", "text")
+    rformat = rformat or request.args.get("format", "text")
     if rformat == "text":
         return f"{solved_sudoku}"
     elif rformat == "html":
         return render_template("sudoku_render.html", sudoku=solved_sudoku.as_list())
+    elif rformat == "json":
+        return jsonify(
+            {
+                "original_sudoku": new_sudoku.as_list(),
+                "solved_sudoku": solved_sudoku.as_list(),
+            }
+        )
     else:
-        return f"Not valid format: {rformat}. Use 'text' or 'html'."
+        return f"Not valid format: {rformat}. Use 'text' 'html' or 'json'."
