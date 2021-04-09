@@ -23,13 +23,13 @@
     <p>Fill in your unsolved sudoku. Use <code>0</code> for empty fields. Only the 81 digists are read, so you don't
         have to care about formatting.</p>
     <form action="/solve" method="post">
-        <label for="sudoku">Unsolved sudoku</label>
-        <label for="return_format"> Format </label>
-        <select name="return_format">
+        <label for="rformat">Format</label>
+        <select name="return_format" id="rformat">
             <option value="text">Text</option>
             <option selected value="html">HTML</option>
             <option value="json">JSON</option>
         </select>
+        <label for="infield">Unsolved sudoku</label>
         <textarea name="sudoku" rows="9" id="infield" required="true" placeholder="1 0 0  0 0 0  0 0 6
 0 0 6  0 2 0  7 0 0
 7 8 9  4 5 0  1 0 3

@@ -86,8 +86,11 @@ class Sudoku:
         ]
 
 
-def solve(sudoku, depth=0):
+def solve(sudoku, depth=0, max_depth=None):
     # escape if solved
+    if max_depth is not None:
+        if depth >= max_depth:
+            return sudoku
     if sudoku.is_finished():
         return sudoku
 
@@ -102,7 +105,7 @@ def solve(sudoku, depth=0):
                 new_sudoku.setval(x, y, choice)
                 new_sudoku.update()
 
-                solution = solve(new_sudoku, depth=depth + 1)
+                solution = solve(new_sudoku, depth=depth + 1, max_depth=max_depth)
                 if solution:
                     return solution
 
