@@ -1,4 +1,6 @@
 import numpy as np
+from numpy.core.numeric import full
+from numpy.random import rand
 
 
 class Sudoku:
@@ -19,14 +21,15 @@ class Sudoku:
                 if arr[i, j] > 0:
                     self.setval(j, i, arr[i, j])
 
-    def setval(self, x, y, num):
-
+    def setval(self, x, y, num, update=True):
+        num = int(num)
         # remove option from all bounded numbers
-        self.possibilities[y, :, num - 1] = 0
-        self.possibilities[:, x, num - 1] = 0
-        self.possibilities[
-            y - y % 3 : y - y % 3 + 3, x - x % 3 : x - x % 3 + 3, num - 1
-        ] = 0
+        if update:
+            self.possibilities[y, :, num - 1] = 0
+            self.possibilities[:, x, num - 1] = 0
+            self.possibilities[
+                y - y % 3 : y - y % 3 + 3, x - x % 3 : x - x % 3 + 3, num - 1
+            ] = 0
 
         # set value itself
         self.possibilities[y, x] = np.array(
@@ -101,7 +104,9 @@ def solve(sudoku, depth=0, max_depth=None):
         for y, x in np.argwhere(
             sudoku.possibility_count() == np.unique(sudoku.possibility_count())[1]
         ):
-            for choice in sudoku.get_possibilities(x, y):
+            poss = sudoku.get_possibilities(x, y)
+            np.random.shuffle(poss)
+            for choice in poss:
                 new_sudoku = sudoku.copy()
                 new_sudoku.setval(x, y, choice)
                 new_sudoku.update()
@@ -112,23 +117,48 @@ def solve(sudoku, depth=0, max_depth=None):
             return None
 
 
-if __name__ == "__main__":
-    very_diff_sudoku = Sudoku(
-        np.array(
-            [
-                [0, 0, 0, 0, 0, 3, 0, 1, 7],
-                [0, 1, 5, 0, 0, 9, 0, 0, 8],
-                [0, 6, 0, 0, 0, 0, 0, 2, 0],
-                [1, 0, 0, 0, 0, 7, 0, 0, 0],
-                [0, 0, 9, 0, 0, 0, 2, 0, 0],
-                [0, 0, 0, 5, 0, 0, 0, 0, 4],
-                [0, 0, 0, 0, 0, 0, 0, 2, 0],
-                [5, 0, 0, 6, 0, 0, 3, 4, 0],
-                [3, 4, 0, 2, 0, 0, 0, 0, 0],
-            ]
-        )
-    )
-    solved_vds = solve(very_diff_sudoku)
+def generate(n=10):
+    new_sudoku = Sudoku()
+    random_positions = np.random.choice(np.indices((9, 9)), 2)
+    print(random_positions)
+    # while solve(new_sudoku) is None and new_sudoku.count_filled() < n:
+    return new_sudoku
 
-    print(str(very_diff_sudoku))
-    print(str(solved_vds))
+
+def generate_filled():
+    s = np.zeros((9, 9))
+    rand_block = np.arange(1, 10).reshape((3, 3))
+    np.random.shuffle(rand_block)
+    s[:3, :3] = rand_block
+    np.random.shuffle(rand_block)
+    s[6:, 6:] = rand_block
+    np.random.shuffle(rand_block)
+    s[3:6, 3:6] = rand_block
+    new_sudoku = Sudoku(s)
+
+    return solve(new_sudoku)
+
+
+if __name__ == "__main__":
+    # very_diff_sudoku = Sudoku(
+    #     np.array(
+    #         [
+    #             [0, 0, 0, 0, 0, 3, 0, 1, 7],
+    #             [0, 1, 5, 0, 0, 9, 0, 0, 8],
+    #             [0, 6, 0, 0, 0, 0, 0, 2, 0],
+    #             [1, 0, 0, 0, 0, 7, 0, 0, 0],
+    #             [0, 0, 9, 0, 0, 0, 2, 0, 0],
+    #             [0, 0, 0, 5, 0, 0, 0, 0, 4],
+    #             [0, 0, 0, 0, 0, 0, 0, 2, 0],
+    #             [5, 0, 0, 6, 0, 0, 3, 4, 0],
+    #             [3, 4, 0, 2, 0, 0, 0, 0, 0],
+    #         ]
+    #     )
+    # )
+    # solved_vds = solve(very_diff_sudoku)
+
+    # print(str(very_diff_sudoku))
+    # print(str(solved_vds))
+
+    test_sudoku = generate_filled()
+    print(test_sudoku)
