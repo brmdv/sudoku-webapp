@@ -118,11 +118,17 @@ def solve(sudoku, depth=0, max_depth=None):
 
 
 def generate(n=10):
-    new_sudoku = Sudoku()
-    random_positions = np.random.choice(np.indices((9, 9)), 2)
-    print(random_positions)
-    # while solve(new_sudoku) is None and new_sudoku.count_filled() < n:
-    return new_sudoku
+    new_sudoku = generate_filled()
+
+    random_positions = np.array([(x, y) for x in range(9) for y in range(9)])[
+        np.random.choice(np.arange(81), n, replace=False)
+    ]
+    while True:
+        test_sudoku = Sudoku()
+        for (x, y) in random_positions:
+            test_sudoku.possibilities[x, y] = new_sudoku.possibilities[x, y]
+        if solve(test_sudoku) is not None:
+            return test_sudoku
 
 
 def generate_filled():
@@ -160,5 +166,5 @@ if __name__ == "__main__":
     # print(str(very_diff_sudoku))
     # print(str(solved_vds))
 
-    test_sudoku = generate_filled()
+    test_sudoku = generate(12)
     print(test_sudoku)
