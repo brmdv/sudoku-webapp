@@ -45,8 +45,6 @@ def solve():
     if rformat == "text":
         return f"{solved_sudoku}"
     elif rformat == "html":
-        # return render_template("sudoku_render.html", sudoku=solved_sudoku.as_list())
-        # elif rformat == "fullhtml":
         return render_template("show_sudoku.j2", sudoku=solved_sudoku.as_list())
     elif rformat == "json":
         return jsonify(
@@ -57,6 +55,11 @@ def solve():
         )
     else:
         return f"Not valid format: {rformat}. Use 'text' 'html' or 'json'."
+
+
+@app.route("/generate")
+def generate_sudoku():
+    return "Not implemented yet."
 
 
 # to run as dev server
