@@ -87,10 +87,11 @@ class Sudoku:
 
 
 def solve(sudoku, depth=0, max_depth=None):
+
     # escape if solved
     if max_depth is not None:
         if depth >= max_depth:
-            return sudoku
+            return None
     if sudoku.is_finished():
         return sudoku
 
@@ -108,44 +109,10 @@ def solve(sudoku, depth=0, max_depth=None):
                 solution = solve(new_sudoku, depth=depth + 1, max_depth=max_depth)
                 if solution:
                     return solution
+            return None
 
 
 if __name__ == "__main__":
-    test_sudoku = Sudoku(
-        np.array(
-            [
-                [1, 0, 0, 0, 0, 0, 0, 0, 6],
-                [0, 0, 6, 0, 2, 0, 7, 0, 0],
-                [7, 8, 9, 4, 5, 0, 1, 0, 3],
-                [0, 0, 0, 8, 0, 7, 0, 0, 4],
-                [0, 0, 0, 0, 3, 0, 0, 0, 0],
-                [0, 9, 0, 0, 0, 4, 2, 0, 1],
-                [3, 1, 2, 9, 7, 0, 0, 4, 0],
-                [0, 4, 0, 0, 1, 2, 0, 7, 8],
-                [9, 0, 8, 0, 0, 0, 0, 0, 0],
-            ]
-        )
-    )
-    test_sudoku.update()
-    print(test_sudoku)
-
-    diff_sudoku = Sudoku(
-        np.array(
-            [
-                [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [2, 0, 0, 0, 0, 0, 0, 0, 0],
-                [9, 6, 0, 0, 5, 8, 0, 0, 0],
-                [0, 0, 3, 4, 0, 0, 0, 7, 0],
-                [0, 0, 8, 0, 0, 0, 0, 0, 2],
-                [0, 2, 0, 0, 6, 7, 5, 0, 0],
-                [4, 0, 0, 9, 1, 0, 7, 5, 0],
-                [0, 0, 0, 0, 0, 6, 0, 8, 0],
-                [0, 0, 0, 0, 0, 5, 4, 0, 3],
-            ]
-        )
-    )
-    print(solve(diff_sudoku))
-
     very_diff_sudoku = Sudoku(
         np.array(
             [
