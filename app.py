@@ -32,7 +32,13 @@ def solve():
         return f"Not a valid sudoku, try again."
 
     new_sudoku = Sudoku(sudoku_text)
+    if not new_sudoku.is_valid():
+        return f"Sudoku is not valid, try again."
+
+    #  SOLVE
     solved_sudoku = sudoku_solve(new_sudoku, max_depth=100)
+    if solved_sudoku is None:
+        return f"Sudoku not solveable, check input."
 
     # select return format
     rformat = rformat or request.args.get("format", "text")
