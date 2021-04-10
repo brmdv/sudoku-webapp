@@ -3,7 +3,7 @@
     {% set outer_loop = loop %}
     <tr>
         {% for col in row %}
-        <td {{ outer_loop.index * loop.index }}>{{ col if col!=0 else '' }}</td>
+        <td {{ 'class=initial' if (loop.index0, outer_loop.index0 ) in initials else '' }}>{{ col if col!=0 else '' }}</td>
         {% endfor %}
     </tr>
     {% endfor %}

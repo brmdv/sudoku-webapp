@@ -46,7 +46,10 @@ def solve():
         return Response(str(solved_sudoku), mimetype="text/plain")
     elif rformat == "html":
         return render_template(
-            "show_sudoku.j2", sudoku=solved_sudoku.as_list(), title="Solution"
+            "show_sudoku.j2",
+            sudoku=solved_sudoku.as_list(),
+            initials=[(x, y) for x, y in zip(*new_sudoku.get_filled_positions())],
+            title="Solution",
         )
     elif rformat == "pure_html":
         return render_template("render_sudoku.html", solved_sudoku.as_list())
@@ -65,7 +68,7 @@ def solve():
 @app.route("/generate")
 def generate_sudoku():
     try:
-        n = int(request.args.get("n", 15))
+        n = int(request.args.get("n", 35))
         assert n <= 81
         assert n >= 0
     except:
@@ -79,7 +82,10 @@ def generate_sudoku():
 
     elif rformat == "html":
         return render_template(
-            "show_sudoku.j2", sudoku=sud.as_list(), title="New sudoku"
+            "show_sudoku.j2",
+            sudoku=sud.as_list(),
+            initials=[(y, x) for x, y in zip(*sud.get_filled_positions())],
+            title="New sudoku",
         )
     elif rformat == "json":
         return jsonify(

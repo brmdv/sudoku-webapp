@@ -88,6 +88,9 @@ class Sudoku:
             for y in range(9)
         ]
 
+    def get_filled_positions(self):
+        return np.where(self.possibility_count() == 1)
+
 
 def solve(sudoku, depth=0, max_depth=None):
 
@@ -167,4 +170,5 @@ if __name__ == "__main__":
     # print(str(solved_vds))
 
     test_sudoku = generate(12)
+    print(test_sudoku.get_filled_positions())
     print(test_sudoku)
