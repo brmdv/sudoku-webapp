@@ -7,5 +7,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY *.py /app/
 COPY templates/*.html /app/templates/
 
-ENTRYPOINT [ "python" ]
+ENTRYPOINT ["python"]
 CMD ["app.py"]

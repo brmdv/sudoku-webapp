@@ -80,9 +80,9 @@ class Sudoku:
                 int(self.get_possibilities(x, y)[0])
                 if len(self.get_possibilities(x, y)) == 1
                 else 0
-                for y in range(9)
+                for x in range(9)
             ]
-            for x in range(9)
+            for y in range(9)
         ]
 
 
@@ -146,4 +146,22 @@ if __name__ == "__main__":
     )
     print(solve(diff_sudoku))
 
-    print(diff_sudoku.as_list())
+    very_diff_sudoku = Sudoku(
+        np.array(
+            [
+                [0, 0, 0, 0, 0, 3, 0, 1, 7],
+                [0, 1, 5, 0, 0, 9, 0, 0, 8],
+                [0, 6, 0, 0, 0, 0, 0, 0, 0],
+                [1, 0, 0, 0, 0, 7, 0, 0, 0],
+                [0, 0, 9, 0, 0, 0, 2, 0, 0],
+                [0, 0, 0, 5, 0, 0, 0, 0, 4],
+                [0, 0, 0, 0, 0, 0, 0, 2, 0],
+                [5, 0, 0, 6, 0, 0, 3, 4, 0],
+                [3, 4, 0, 2, 0, 0, 0, 0, 0],
+            ]
+        )
+    )
+    solved_vds = solve(very_diff_sudoku)
+
+    print(str(very_diff_sudoku))
+    print(str(solved_vds))

@@ -1,8 +1,9 @@
-<table>
+<table class="sudoku">
     {% for row in sudoku %}
+    {% set outer_loop = loop %}
     <tr>
         {% for col in row %}
-        <td>{{ col if col!=0 else '' }}</td>
+        <td {{ outer_loop.index * loop.index }}>{{ col if col!=0 else '' }}</td>
         {% endfor %}
     </tr>
     {% endfor %}

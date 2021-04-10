@@ -32,7 +32,7 @@ def solve():
         return f"Not a valid sudoku, try again."
 
     new_sudoku = Sudoku(sudoku_text)
-    solved_sudoku = sudoku_solve(new_sudoku, max_depth=300)
+    solved_sudoku = sudoku_solve(new_sudoku, max_depth=100)
 
     # select return format
     rformat = rformat or request.args.get("format", "text")
@@ -40,6 +40,8 @@ def solve():
         return f"{solved_sudoku}"
     elif rformat == "html":
         return render_template("sudoku_render.html", sudoku=solved_sudoku.as_list())
+    elif rformat == "fullhtml":
+        return render_template("show_sudoku.j2", sudoku=solved_sudoku.as_list())
     elif rformat == "json":
         return jsonify(
             {
