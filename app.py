@@ -1,7 +1,7 @@
 import numpy as np
-from flask import Flask, jsonify, redirect, render_template, request, url_for
+from flask import Flask, jsonify, redirect, render_template, request, url_for, Response
 
-from sudoku import Sudoku
+from sudoku import Sudoku, generate
 from sudoku import solve as sudoku_solve
 
 app = Flask(__name__)
@@ -43,9 +43,14 @@ def solve():
     # select return format
     rformat = rformat or request.args.get("format", "text")
     if rformat == "text":
-        return f"{solved_sudoku}"
+        return Response(str(solved_sudoku), mimetype="text/plain")
     elif rformat == "html":
-        return render_template("show_sudoku.j2", sudoku=solved_sudoku.as_list())
+        return render_template(
+            "show_sudoku.j2", sudoku=solved_sudoku.as_list(), title="Solution"
+        )
+    elif rformat == "pure_html":
+        return render_template("render_sudoku.html", solved_sudoku.as_list())
+
     elif rformat == "json":
         return jsonify(
             {
@@ -59,7 +64,33 @@ def solve():
 
 @app.route("/generate")
 def generate_sudoku():
-    return "Not implemented yet."
+    try:
+        n = int(request.args.get("n", 15))
+        assert n <= 81
+        assert n >= 0
+    except:
+        return "Not valid n."
+    sud = generate(n)
+
+    # select return format
+    rformat = request.args.get("format", "html")
+    if rformat == "text":
+        return Response(str(sud), mimetype="text/plain")
+
+    elif rformat == "html":
+        return render_template(
+            "show_sudoku.j2", sudoku=sud.as_list(), title="New sudoku"
+        )
+    elif rformat == "json":
+        return jsonify(
+            {
+                "new_sudoku": sud.as_list(),
+                "solution": sudoku_solve(sud).as_list(),
+            }
+        )
+    else:
+        return f"Not valid format: {rformat}. Use 'text' 'html' or 'json'."
+    return render_template
 
 
 # to run as dev server

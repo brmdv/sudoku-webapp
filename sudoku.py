@@ -55,7 +55,7 @@ class Sudoku:
                 if col.sum() == 1:
                     out += f"{np.arange(1, 10)[col][0]} "
                 else:
-                    out += "  "
+                    out += "0 "
             out += "\n"
         return out
 

@@ -41,9 +41,26 @@
 9 0 8  0 0 0  0 0 0" wrap="off"></textarea>
         <button type="submit">Solve!</button>
     </form>
+
+    <h2>Generate a new sudoku</h2>
+    <p>There is also a naive sudoku generator. </p>
+    <form action="/generate" method="GET">
+        <label for="n_selector"># prefilled numbers</label>
+        <input type="number" value="12" min="1" max="81" name="n" id="n_selector">
+        <label for="genformat">Format</label>
+        <select name="format" id="genformat">
+            <option value="text">Text</option>
+            <option selected value="html">HTML</option>
+            <option value="json">JSON</option>
+        </select>
+        <button>Generate
+            sudoku!</button>
+
+    </form>
+
     <h2>API</h2>
     <p><b>Solve</b> sudokus with <a
-            href="/solve?s=100000006006020700789450103000807004000030000090004201312970040040012078908000000&format=html">/solve?s=<i>100000006…8908000000</i></a>
+            href="/solve?s=100000006006020700789450103000807004000030000090004201312970040040012078908000000">/solve?s=<i>100000006…8908000000</i></a>
     <ul>
         <li>
             <pre>s=</pre> 81 digits with initial sudoku.
@@ -54,7 +71,17 @@
     </ul>
     </p>
 
-    <p><b>Generate</b> a sudoku with <a href="/generate">/generate</a></p>
+    <p><b>Generate</b> a sudoku with <a href="/generate">/generate</a>
+    <ul>
+        <li>
+            <pre>n=</pre> number of prefilled cells
+        </li>
+        <li>
+            <pre>format=</pre> result format, {<i><b>text</b>, html, json</i>}.
+        </li>
+    </ul>
+
+    </p>
 </body>
 
 </html>
