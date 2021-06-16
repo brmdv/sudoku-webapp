@@ -14,6 +14,12 @@
         }
     </style>
     <title>Bram’s Sudoku Solver</title>
+    <script type="text/javascript">
+        fill_example=function(){
+            input_field=document.querySelector("#infield");
+            input_field.textContent=input_field.getAttribute("placeholder");
+        }
+    </script>
 </head>
 
 <body>
@@ -30,6 +36,7 @@
             <option value="json">JSON</option>
         </select>
         <label for="infield">Unsolved sudoku</label>
+        <a href="javascript:fill_example()">Or use example sudoku</a>
         <textarea name="sudoku" rows="9" id="infield" required="true" placeholder="1 0 0  0 0 0  0 0 6
 0 0 6  0 2 0  7 0 0
 7 8 9  4 5 0  1 0 3
