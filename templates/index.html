@@ -15,9 +15,9 @@
     </style>
     <title>Bram’s Sudoku Solver</title>
     <script type="text/javascript">
-        fill_example=function(){
-            input_field=document.querySelector("#infield");
-            input_field.textContent=input_field.getAttribute("placeholder");
+        fill_example = function () {
+            input_field = document.querySelector("#infield");
+            input_field.textContent = input_field.getAttribute("placeholder");
         }
     </script>
 </head>
@@ -25,11 +25,12 @@
 <body>
     <h1>Bram’s Sudoku Solver</h1>
     <p>This is a simple project to learn Flask, Docker, etc. The sudoku solver itself I wrote on another occasion.</p>
+    <hr>
     <h2>Solve a sudoku</h2>
     <p>Fill in your unsolved sudoku. Use <code>0</code> for empty fields. Only the 81 digists are read, so you don't
         have to care about formatting.</p>
     <form action="/solve" method="post">
-        <label for="rformat">Format</label>
+        <label for="rformat">Export format</label>
         <select name="return_format" id="rformat">
             <option value="text">Text</option>
             <option selected value="html">HTML</option>
@@ -66,14 +67,15 @@
             sudoku!</button>
 
     </form>
-<hr>
+
+    <hr>
 
     <h2>API</h2>
     <p><b>Solve</b> sudokus with <a
             href="/solve?s=100000006006020700789450103000807004000030000090004201312970040040012078908000000">/solve?s=<i>100000006…8908000000</i></a>
     <ul>
         <li>
-            <pre>s=</pre> 81 digits with initial sudoku.
+            <pre>s=</pre> 81 digits with initial sudoku; row by row, left to right.
         </li>
         <li>
             <pre>format=</pre> result format, {<i><b>text</b>, html, json</i>}.
@@ -92,6 +94,11 @@
     </ul>
 
     </p>
+    <footer>
+        <h4>Sources on Github</h4>
+        <a href="https://github.com/brmdv/sudoku-solvers">Solver/generator</a>
+        <a href="">This web app</a>
+    </footer>
 </body>
 
 </html>
