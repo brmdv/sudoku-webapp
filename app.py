@@ -36,7 +36,7 @@ def solve():
         return f"Sudoku is not valid, try again."
 
     #  SOLVE
-    solved_sudoku = sudoku_solve(new_sudoku, max_depth=100)
+    solved_sudoku = sudoku_solve(new_sudoku, maxdepth=100)
     if solved_sudoku is None:
         return f"Sudoku not solveable, check input."
 

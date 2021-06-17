@@ -175,7 +175,7 @@ def generate_filled() -> Sudoku:
     returns the first solution.
 
     :return: The filled sudoku.
-    :rtpye: Sudoku
+    :rtype: Sudoku
     """
     # create empty sudoku
     s = np.zeros((9, 9), dtype=np.uint8)
