@@ -48,7 +48,7 @@ def solve():
         return render_template(
             "show_sudoku.j2",
             sudoku=solved_sudoku.as_list(),
-            initials=[(x, y) for x, y in zip(*new_sudoku.get_filled_positions())],
+            initials=[(y, x) for x, y in zip(*new_sudoku.get_filled_positions())],
             title="Solution",
         )
     elif rformat == "pure_html":

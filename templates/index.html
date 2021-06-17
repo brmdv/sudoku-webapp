@@ -36,7 +36,7 @@
             <option value="json">JSON</option>
         </select>
         <label for="infield">Unsolved sudoku</label>
-        <a href="javascript:fill_example()">Or use example sudoku</a>
+        <a href="javascript:fill_example()">Or use sample sudoku</a>
         <textarea name="sudoku" rows="9" id="infield" required="true" placeholder="1 0 0  0 0 0  0 0 6
 0 0 6  0 2 0  7 0 0
 7 8 9  4 5 0  1 0 3
@@ -49,12 +49,14 @@
         <button type="submit">Solve!</button>
     </form>
 
+    <hr>
+
     <h2>Generate a new sudoku</h2>
     <p>There is also a naive sudoku generator. </p>
     <form action="/generate" method="GET">
-        <label for="n_selector"># prefilled numbers</label>
+        <label for="n_selector">Number of prefilled numbers</label>
         <input type="number" value="25" min="1" max="81" name="n" id="n_selector">
-        <label for="genformat">Format</label>
+        <label for="genformat">Export format</label>
         <select name="format" id="genformat">
             <option value="text">Text</option>
             <option selected value="html">HTML</option>
@@ -64,6 +66,7 @@
             sudoku!</button>
 
     </form>
+<hr>
 
     <h2>API</h2>
     <p><b>Solve</b> sudokus with <a
